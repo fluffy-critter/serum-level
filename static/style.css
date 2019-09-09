@@ -1,0 +1,19 @@
+form {
+    display: inline;
+}
+
+table {
+    border-collapse: collapse;
+    border: solid black 2px;
+}
+
+table th {
+    border: solid black 2px;
+    background: #ff7;
+    padding: 0 0.5ex;
+}
+
+table td {
+    padding: 0 0.5ex;
+    border: solid black 1px;
+}

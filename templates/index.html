@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Serum level calculator</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
+</head>
+<body>
+
+    <h1>Serum level calculator</h1>
+
+    <form method="get">
+        {% for label,item,step in [
+            ('Starting serum level', 'start_level', 0.1),
+            ('Dose amount', 'dose', 0.1),
+            ('Dose frequency (in hours)', 'frequency', 1),
+            ('Serum half-life (hours)', 'half_life', 1),
+            ]
+        %}
+
+        <div class="field">
+            <label for="{{item}}">{{label}}:</label>
+            <input type="number" name="{{item}}" value="{{args[item]|int}}" step="{{step}}" min="0">
+        </div>
+        {% endfor %}
+
+        <input type="submit" value="go">
+    </form>
+
+    {% if rows %}
+    <table>
+        <tr>
+            <th>Day</th><th>Dose</th><th>Serum level</th><th>Actions</th>
+        </tr>
+        {% for day,dose,level in rows %}
+        <tr>
+            <td>{{day}}</td>
+            <td>{{dose}}</td>
+            <td>{{level|round(1)}}</td>
+            <td>
+                <form method="get">
+                    <input type="hidden" name="start_level" value="{{level}}">
+                    <input type="hidden" name="dose" value="0">
+                    <input type="hidden" name="frequency" value="24">
+                    <input type="hidden" name="half_life" value="{{args['half_life']}}">
+                    <input type="submit" value="Discontinue">
+                </form>
+                <form method="get">
+                    <input type="hidden" name="start_level" value="{{level}}">
+                    <input type="hidden" name="dose" value="{{args['dose']}}">
+                    <input type="hidden" name="frequency" value="{{args['frequency']}}">
+                    <input type="hidden" name="half_life" value="{{args['half_life']}}">
+                    <input type="submit" value="Change dose">
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</body>
