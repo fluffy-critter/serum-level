@@ -10,16 +10,16 @@
 
     <form method="get">
         {% for label,item,step in [
-            ('Starting serum level', 'start_level', 0.1),
-            ('Dose amount', 'dose', 0.1),
-            ('Dose frequency (in hours)', 'frequency', 1),
+            ('Starting serum level', 'start_level', 1),
+            ('Dose amount', 'dose', 1),
+            ('Dose frequency (hours)', 'frequency', 1),
             ('Serum half-life (hours)', 'half_life', 1),
             ]
         %}
 
         <div class="field">
             <label for="{{item}}">{{label}}:</label>
-            <input type="number" name="{{item}}" value="{{args[item]|int}}" step="{{step}}" min="0">
+            <input id="{{item}}" type="number" name="{{item}}" value="{{args[item]|round|int}}" step="{{step}}" min="0">
         </div>
         {% endfor %}
 
@@ -29,12 +29,13 @@
     {% if rows %}
     <table>
         <tr>
-            <th>Day</th><th>Dose</th><th>Serum level</th><th>Actions</th>
+            <th>Day</th><th>Dose</th><th>Before</th><th>After<th>Actions</th>
         </tr>
-        {% for day,dose,level in rows %}
+        {% for day,dose,attenuated,level in rows %}
         <tr>
             <td>{{day}}</td>
             <td>{{dose}}</td>
+            <td>{{attenuated|round(2)}}</td>
             <td>{{level|round(1)}}</td>
             <td>
                 <form method="get">

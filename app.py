@@ -23,11 +23,12 @@ def index():
 
         while True:
             previous = level
-            level = previous*beta + dose
+            attenuated = previous*beta
+            level = attenuated + dose
 
             if threshold is not None and abs(level - previous) < threshold:
                 break
-            yield int(time/24), int(time%24/frequency + 1), level
+            yield int(time/24), int(time%24/frequency + 1), attenuated, level
 
             time += frequency
 
