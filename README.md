@@ -1,5 +1,10 @@
 # serum-level
-A very simple drug blood serum level calculator
+
+A very simple drug blood serum level calculator, written in Flask.
+
+# Disclaimer
+
+I am not a doctor. This is just a quick-and-dirty approximate thing which should only be used for informational purposes and does not constitute medical advice.
 
 # Usage
 
