@@ -12,7 +12,7 @@
     <form method="get">
         {% for label,item,step in [
             ('Starting serum level', 'start_level', 1),
-            ('Dose amount', 'dose', 1),
+            ('Dose amount', 'dose', 'any'),
             ('Dose frequency (hours)', 'frequency', 1),
             ('Serum half-life (hours)', 'half_life', 1),
             ]
@@ -20,7 +20,7 @@
 
         <div class="field">
             <label for="{{item}}">{{label}}:</label>
-            <input id="{{item}}" type="number" name="{{item}}" value="{{args[item]|round|int}}" step="{{step}}" min="0">
+            <input id="{{item}}" type="number" name="{{item}}" value="{{args[item]}}" step="{{step}}" min="0">
         </div>
         {% endfor %}
 
